@@ -84,7 +84,7 @@ body {
         align-items: center;
         justify-content: space-between;
         height: 50px;
-        padding: 10px 20px;
+        padding: 5px 5px;
         border: 1px solid var(--text-color);
         cursor: pointer;
         &:hover {
@@ -95,8 +95,14 @@ body {
           flex-direction: row;
           align-items: center;
           justify-content: flex-start;
-          width: 100%;
           gap: 10px;
+          #drag-and-drop-function {
+            width: 36px;
+            height: 36px;
+            background-color: transparent;
+            border: none;
+            cursor: grab;
+          }
           & #item-icon {
             width: 20px;
             height: 20px;
@@ -108,19 +114,18 @@ body {
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            width: 100%;
             gap: 5px;
             & #item-name {
               font-size: 16px;
               font-weight: bold;
               color: var(--text-color);
-              margin-bottom: 0;
+              margin: 0;
               padding: 0;
             }
             & #item-type {
               font-size: 14px;
               color: var(--text-color-secondary);
-              margin-top: 0;
+              margin: 0;
             }
           }
         }

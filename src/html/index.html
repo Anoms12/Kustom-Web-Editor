@@ -43,7 +43,14 @@
       <div class="container" id="item-content-container">
         <div id="item" class="container">
           <div id="left-content-container" class="container">
-            <button id="drag-and-drop-function" class="button"></button>
+            <button id="drag-and-drop-function" class="button">
+              <img
+                id="drag-icon"
+                class="icon"
+                src="/src/assets/drag-indicator.svg"
+                alt="Drag indicator"
+              />
+            </button>
             <svg
               id="item-icon"
               class="icon"
@@ -53,10 +60,11 @@
             <div id="item-info-container" class="container">
               <h3 id="item-name">Item Name</h3>
               <h4 id="item-type">Item Type</h4>
+            </div>
           </div>
           <div id="right-content-container" class="container">
             <label class="button">
-              <input id="item-select" type="checkbox"/>
+              <input id="item-select" type="checkbox" />
             </label>
           </div>
         </div>
