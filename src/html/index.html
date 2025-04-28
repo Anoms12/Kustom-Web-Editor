@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kustom Web Editor</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&family=Sonsie+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Stylesheets-->
+    <link rel="stylesheet" href="../css/defaults.css" />
+    <link rel="stylesheet" href="../css/editor/layout.css" />
+  </head>
+  <body>
+    <!--Define Main Layout-->
+    <div class="container" id="content-header">
+      <div id="project-info-container">
+        <h1 id="project-title">Kustom Web Editor</h1>
+        <h2 id="project-extension">The Famed Kustom Web Editor Reborn</h2>
+      </div>
+      <div id="project-functions-container">
+        <button id="project-save" class="project-function">Save</button>
+        <button id="project-history" class="project-function">Load</button>
+        <button id="project-new" class="project-function">New</button>
+      </div>
+    </div>
+    <div class="container" id="center-container">
+      <div class="container functions-container" id="left-functions"></div>
+      <div class="container" id="canvas-container"></div>
+      <div class="container" id="right-container">
+        <div class="container" id="content-prefrences-container"></div>
+        <div class="container functions-container" id="right-functions"></div>
+      </div>
+    </div>
+    <div class="container resizable-container" id="navigation-container">
+      <div class="resizer"></div>
+      <div class="container" id="item-content-container">
+        <div id="item" class="container">
+          <div id="left-content-container" class="container">
+            <button id="drag-and-drop-function" class="button"></button>
+            <svg
+              id="item-icon"
+              class="icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            ></svg>
+            <div id="item-info-container" class="container">
+              <h3 id="item-name">Item Name</h3>
+              <h4 id="item-type">Item Type</h4>
+          </div>
+          <div id="right-content-container" class="container">
+            <label class="button">
+              <input id="item-select" type="checkbox"/>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/editor/resizer.js"></script>
+  </body>
+</html>
