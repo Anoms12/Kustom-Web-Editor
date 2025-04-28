@@ -1,0 +1,38 @@
+.primary-function {
+  width: 300px;
+  height: 100px;
+  background-color: transparent;
+  border: 1px solid var(--text-color);
+  border-radius: 12px;
+  color: var(--text-color);
+  font-size: 30px;
+  transition: all 0.7s;
+  &:hover {
+    color: black;
+    background-color: var(--text-color);
+    box-shadow: 4px 4px 20px;
+    border-radius: 12px 12px 0px 0px;
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  & .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--text-color);
+    width: 100%;
+    box-shadow: 4px 4px 20px;
+    z-index: -1;
+    left: 0;
+    bottom: -100%;
+  }
+
+  &:hover {
+    .dropdown-content {
+      display: block;
+    }
+  }
+}
