@@ -16,25 +16,6 @@ body {
     background-color: transparent;
     border-bottom: 1px solid var(--text-color);
 
-    & #project-info-container {
-      display: flex;
-      flex-direction: column;
-    }
-
-    & #project-title {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--text-color);
-      margin-bottom: 0;
-      padding: 0;
-    }
-
-    & #project-extension {
-      font-size: 16px;
-      color: var(--text-color-secondary);
-      margin-top: 0;
-    }
-
     & #project-functions-container {
       display: flex;
       flex-direction: row;
@@ -119,14 +100,12 @@ body {
           & #drag-and-drop-function {
             cursor: grab;
           }
-
           & #item-icon {
             width: 20px;
             height: 20px;
             background-color: var(--icon-color);
             border-radius: 50%;
           }
-
           #item-info-container {
             display: flex;
             flex-direction: column;
