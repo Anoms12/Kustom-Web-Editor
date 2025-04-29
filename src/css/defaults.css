@@ -6,6 +6,7 @@
   --p-background-color: #333333;
   --selected-color: #616161;
   --s-background-color: #141414;
+  font-family: "Roboto", sans-serif;
 }
 
 html {
@@ -15,10 +16,14 @@ html {
   }
 
   .functions-container {
+    display: flex;
+    flex-direction: column;
     width: 50px;
     background-color: var(--s-background-color);
     flex-shrink: 0;
     flex-grow: 2;
+    padding: 2px 5px;
+    justify-content: flex-start;
   }
   .resizer {
     width: 100%;
@@ -34,4 +39,18 @@ html {
       background-color: var(--main-color);
     }
   }
+}
+
+/* Icons */
+.icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+/* Buttons */
+.button {
+  padding: 1px 4px;
+  background: none;
+  border: none;
 }

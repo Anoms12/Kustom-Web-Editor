@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&family=Sonsie+One&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
     />
 
@@ -52,15 +52,88 @@
       </div>
     </div>
     <div class="container" id="center-container">
-      <div class="container functions-container" id="left-functions"></div>
+      <div class="container functions-container" id="left-functions">
+        <button id="tree-folder-function" class="button">
+          <img
+            id="folder-icon"
+            class="icon"
+            src="/src/assets/folder-icon.svg"
+            alt="Drag indicator"
+          />
+        </button>
+      </div>
       <div class="container" id="canvas-container"></div>
       <div class="container" id="right-container">
         <div class="container" id="content-prefrences-container"></div>
-        <div class="container functions-container" id="right-functions"></div>
+        <div class="container functions-container" id="right-functions">
+          <button id="screens-function" class="button">
+            <img
+              id="screens-icon"
+              class="icon"
+              src="/src/assets/screens-icon.svg"
+              alt="Switch Screen"
+            />
+          </button>
+          <button id="zoom-function" class="button">
+            <img
+              id="zoom-icon"
+              class="icon"
+              src="/src/assets/zoom-icon.svg"
+              alt="Zoom Lock"
+            />
+          </button>
+          <button id="lock-function" class="button">
+            <img
+              id="lock-icon"
+              class="icon"
+              src="/src/assets/lock-icon.svg"
+              alt="Lock Prefences?"
+            />
+          </button>
+          <button id="overlay-function" class="button">
+            <img
+              id="overlay-icon"
+              class="icon"
+              src="/src/assets/layer-icon.svg"
+              alt="Enable/Disable Overlays"
+            />
+          </button>
+          <button id="pause/play-function" class="button">
+            <img
+              id="pause-icon"
+              class="icon"
+              src="/src/assets/pause-icon.svg"
+              alt="Pause/Play Animations?"
+            />
+          </button>
+          <buttton id="rotate-display-function" class="button">
+            <img
+              id="rotate-icon"
+              class="icon"
+              src="/src/assets/rotate-display-icon.svg"
+              alt="Rotate Screen"
+            />
+          </buttton>
+        </div>
       </div>
     </div>
     <div class="container resizable-container" id="navigation-container">
       <div class="resizer"></div>
+      <div id="attribute-switcher-contianer" class="container">
+        <div id="items-attributes" class="attrubutes-switcher" path="root">
+          <h2 id="item-attributes-title" class="attributes-switcher-title">
+            ITEMS
+          </h2>
+        </div>
+        <div id="background-attributes" class="attrubutes-switcher" path="root">
+          <h2
+            id="background-attributes-title"
+            class="attributes-switcher-title"
+          >
+            BACKGROUND
+          </h2>
+        </div>
+      </div>
       <div class="container" id="item-content-container">
         <div id="item" class="container">
           <div id="left-content-container" class="container">
@@ -91,6 +164,7 @@
         </div>
       </div>
     </div>
-    <script src="/js/editor/resizer.js"></script>
+    <script src="/src/js/editor/resizer.js"></script>
+    <script type="module" src="/src/js/editor/fileReader.js"></script>
   </body>
 </html>
