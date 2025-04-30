@@ -16,34 +16,15 @@ fileInput.addEventListener("change", async (event) => {
     return;
   }
 
-  const newName = fileName.replace(/\.[^/.]+$/, ".zip");
-  const zipFile = new File([file], newName, { type: file.type });
-
-  console.log("File is valid. Renamed to:", zipFile.name);
-
-  await unzipZipFile(zipFile);
-});
-
-async function unzipZipFile(zipFile) {
-  const arrayBuffer = await zipFile.arrayBuffer();
-  const zipData = new Uint8Array(arrayBuffer);
-
-  try {
-    const files = unzipSync(zipData);
-
-    for (const filename in files) {
-      const content = strFromU8(files[filename]);
-      console.log(`Unzipped and found: ${filename}:\n${content}\n`);
-      await storeUnzippedFiles(files);
-    }
-
-    return files;
-  } catch (e) {
-    console.error("Failed to unzip:", e);
+  const confirmClear = confirm(
+    "Importing a new file will clear any previous files from the editor. If you would like to keep those file please export them in the editor first.\n\nDo you want to continue?"
+  );
+  if (!confirmClear) {
+    console.log("🛑 User canceled file import.");
+    fileInput.value = ""; // reset the input to allow re-select
+    return;
   }
-}
 
-async function storeUnzippedFiles(files) {
   const db = await openDB("ZipCacheDB", 1, {
     upgrade(db) {
       if (!db.objectStoreNames.contains("files")) {
@@ -52,6 +33,37 @@ async function storeUnzippedFiles(files) {
     },
   });
 
+  await db.clear("files");
+  console.log("🧹 Cleared old files from IndexedDB");
+
+  const newName = fileName.replace(/\.[^/.]+$/, ".zip");
+  const zipFile = new File([file], newName, { type: file.type });
+
+  console.log("📁 File is valid. Renamed to:", zipFile.name);
+
+  await unzipZipFile(zipFile, db);
+});
+
+async function unzipZipFile(zipFile, db) {
+  const arrayBuffer = await zipFile.arrayBuffer();
+  const zipData = new Uint8Array(arrayBuffer);
+
+  try {
+    const files = unzipSync(zipData);
+
+    for (const filename in files) {
+      const content = strFromU8(files[filename]);
+      console.log(`📦 Unzipped: ${filename}\n${content}\n`);
+      await storeUnzippedFiles(files, db);
+    }
+
+    return files;
+  } catch (e) {
+    console.error("❌ Failed to unzip:", e);
+  }
+}
+
+async function storeUnzippedFiles(files, db) {
   for (const [filename, data] of Object.entries(files)) {
     await db.put("files", data, filename);
   }
