@@ -68,5 +68,5 @@ async function storeUnzippedFiles(files, db) {
     await db.put("files", data, filename);
   }
 
-  console.log("✅ Files stored in IndexedDB");
+  window.location.replace("index.html");
 }
