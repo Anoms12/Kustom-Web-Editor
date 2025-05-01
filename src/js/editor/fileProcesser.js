@@ -13,15 +13,31 @@ async function locateFile(name) {
     console.log(`Found Requested File: ${name}:\n${filedata}`);
     console.log("Moving to file type checks...");
     if (name.endsWith(".json")) {
+      //Setup
       const jsonData = JSON.parse(filedata);
       console.log("Parsed JSON data:", jsonData);
       console.log(jsonData.preset_root);
-
       const viewgroup_items = jsonData.preset_root.viewgroup_items;
+
+      // Functions
+      //Prepare canvas for items based off of file extention type
+      function setupCanvas() {
+        const canvas = document.querySelector("#canvas");
+        style.canvas.width = `${preset_root.width}px`
+        style.canvas.height = `${preset_root.height}px`;
+
+        // Clear the item containers in prep for new items
+      }
+      function clearDiv() {
+        const div = document.getElementById("item-content-container");
+        div.innerHTML = "";
+      }
+      console.log("clearing item container before (re)creating items...");
+      clearDiv();
+      // Create new items
       for (const item of viewgroup_items) {
         console.log("Viewgroup item:", item);
-        function createItems() {
-          console.log("Creating items...");
+        function createItemContent() {
           const div = document.createElement("div");
           div.id = "item";
           div.className = "container";
@@ -36,14 +52,15 @@ async function locateFile(name) {
                       alt="Drag indicator"
                   />
               </button>
-              <svg
+              <img
                   id="item-icon"
                   class="icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-              ></svg>    
+                  src="/src/assets/${itemType}.svg"
+                  alt=${itemType} //Todo: change to readable text
+
+              />    
               <div id="item-info-container" class="container">
-                <h3 id="item-name">${item.internal_title ?? item.internal_type}</h3>
+                <h3 id="item-name">${item.internal_title ?? itemType}</h3>
                 <h4 id="item-description">${itemType}</h4>
               </div>
           </div>
@@ -55,7 +72,24 @@ async function locateFile(name) {
 
           document.querySelector("#item-content-container").appendChild(div);
         }
-        createItems();
+        function createItem() {
+          const displayItem = document.createElement("div");
+          displayItem.className = "display-item";
+          displayItem.id = item.internal_type;
+          const styles = {
+            width: `${item.shape_width}px`,
+            height: `${item.shape_height ?? item.shape_width}px`,
+            borderRadius: `${item.shape_corners}px`,
+            backgroundColor: item.paint_color,
+          };
+
+          Object.assign(displayItem.style, styles);
+
+          document.querySelector("#canvas").appendChild(displayItem);
+        }
+
+        createItem();
+        createItemContent();
       }
     } else {
       console.log("File is not a JSON file. Making next file");
