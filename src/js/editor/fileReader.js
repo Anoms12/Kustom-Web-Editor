@@ -12,7 +12,7 @@ async function logAllFiles() {
     for (const key of allKeys) {
       const fileData = await store.get(key);
       const content = strFromU8(fileData);
-      console.log(`📁 ${key}:\n${content}`);
+      //console.log(`📁 ${key}:\n${content}`);
     }
   }
   
