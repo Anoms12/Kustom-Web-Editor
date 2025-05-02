@@ -71,6 +71,7 @@ body {
       height: 85%;
       background-color: grey;
       border: 1px solid var(--text-color);
+      z-index: 1;
     }
   }
 

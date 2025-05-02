@@ -1,13 +1,14 @@
+import { setupCanvas } from "/src/js/editor/fileProcesser.js";
+
 const navigationContainer = document.getElementById("navigation-container");
 const resizer = navigationContainer.querySelector(".resizer");
 const canvasContainer = document.getElementById("canvas-container");
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Set initial height to 300px if not already set in CSS
-    const initialHeight = 300;
-    navigationContainer.style.height = `${initialHeight}px`; // Ensure no unexpected space under it
-  });
-  
+  // Set initial height to 300px if not already set in CSS
+  const initialHeight = 300;
+  navigationContainer.style.height = `${initialHeight}px`; // Ensure no unexpected space under it
+});
 
 let isResizing = false;
 let initialMouseY = 0;
@@ -19,18 +20,13 @@ resizer.addEventListener("mousedown", (e) => {
   // Now that an inline style is set, offsetHeight returns the actual height.
   initialNavHeight = navigationContainer.offsetHeight;
 
-  // Log the CSS-defined min and max heights
-  const computedStyle = window.getComputedStyle(navigationContainer);
-  const cssMinHeight = parseInt(computedStyle.minHeight, 10);
-  const cssMaxHeight = parseInt(computedStyle.maxHeight, 10);
-  console.log("CSS minHeight:", cssMinHeight, "CSS maxHeight:", cssMaxHeight);
-
   document.addEventListener("mousemove", handleMouseMove);
   document.addEventListener("mouseup", stopResize);
   document.addEventListener("mouseleave", stopResize);
 });
 
 function handleMouseMove(e) {
+  setupCanvas();
   if (!isResizing) return;
 
   // Inverse movement: dragging down (increasing e.clientY) gives a negative offset.
