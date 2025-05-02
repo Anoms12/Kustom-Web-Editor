@@ -1,6 +1,5 @@
 import { openDB } from "https://cdn.skypack.dev/idb";
 import { strFromU8 } from "https://cdn.jsdelivr.net/npm/fflate@0.7.4/esm/browser.js";
-import { initColorPicker } from "/src/js/editor/colorpickerInit.js";
 
 document.addEventListener("click", function (e) {
   if (e.target.closest("#item-attribute-container")) {
