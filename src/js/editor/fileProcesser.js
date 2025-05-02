@@ -31,15 +31,20 @@ export async function locateFile(name) {
       await setupCanvas();
       clearDiv();
       // Create new items
-      for (const item of viewgroup_items) {
-        console.log("Viewgroup item:", item);
-        function createItemContent() {
-          const div = document.createElement("div");
-          div.id = "item";
-          div.className = "container";
-          const itemType = item.internal_type;
-          div.innerHTML = `
-          <div id="left-content-container" class="container">
+      function processItems(items, parentId = "") {
+        items.forEach((item, index) => {
+          const currentId = parentId
+            ? `${parentId}-${index + 1}`
+            : `item-${index + 1}`;
+
+          function createItemContent() {
+            const div = document.createElement("div");
+            div.id = currentId;
+            div.className = "container item";
+            const itemType = item.internal_type;
+            div.setAttribute("type", itemType);
+            div.innerHTML = `
+              <div id="left-content-container" class="container">
               <button id="drag-and-drop-function" class="button">
                   <img
                       id="drag-icon"
@@ -66,16 +71,37 @@ export async function locateFile(name) {
               </label>                
           </div>`;
 
-          document.querySelector("#item-content-container").appendChild(div);
-        }
+            document.querySelector("#item-content-container").appendChild(div);
+          }
 
-          Object.assign(displayItem.style, styles);
+          function createItem() {
+            const displayItem = document.createElement("div");
+            displayItem.className = "display-item";
+            displayItem.id = currentId;
+            displayItem.setAttribute("type", item.internal_type);
+            displayItem.textContent = item.text_expression;
+            const styles = {
+              width: `${item.shape_width ?? item.bitmap_width}px`,
+              height: `${item.shape_height ?? item.shape_width}px`,
+              borderRadius: `${item.shape_corners}px`,
+              backgroundColor: item.paint_color,
+              fontSize: `${item.text_size}px`,
+            };
 
-          document.querySelector("#canvas").appendChild(displayItem);
-        }
-        createItem();
-        createItemContent();
+            Object.assign(displayItem.style, styles);
+            document.querySelector("#canvas").appendChild(displayItem);
+          }
+
+          createItem();
+          createItemContent();
+
+          if (item.children && Array.isArray(item.children)) {
+            processItems(item.children, currentId);
+          }
+        });
       }
+
+      processItems(viewgroup_items);
     } else {
       console.log("File is not a JSON file. Making next file");
     }

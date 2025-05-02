@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="icon" href="/src/assets/kdwe.svg" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"
+    />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
@@ -68,7 +72,24 @@
         <div id="canvas"></div>
       </div>
       <div class="container" id="right-container">
-        <div class="container" id="content-prefrences-container"></div>
+        <div class="container" id="item-prefrences-container">
+          <div id="item-prefrences-title-container">
+            <h2 id="items" class="item-prefrences-title" root="">ITEMS</h2>
+            <h2 id="background" class="item-prefrences-title" root="">
+              BACKGROUND
+            </h2>
+            <h2 id="layer" class="item-prefrences-title" root="">LAYER</h2>
+            <h2 id="position" class="item-prefrences-title" root="">
+              POSITION
+            </h2>
+            <h2 id="globals" class="item-prefrences-title" root="">GLOBALS</h2>
+            <h2 id="flows" class="item-prefrences-title" root="">FLOWS</h2>
+            <h2 id="shortcuts" class="item-prefrences-title" root="">
+              SHORTCUTS
+            </h2>
+          </div>
+          <div id="item-attribute-container"></div>
+        </div>
         <div class="container functions-container" id="right-functions">
           <button id="screens-function" class="button">
             <img
@@ -123,27 +144,13 @@
     </div>
     <div class="container resizable-container" id="navigation-container">
       <div class="resizer"></div>
-      <div id="attribute-switcher-contianer" class="container">
-        <div id="items-attributes" class="attrubutes-switcher" path="root">
-          <h2 id="item-attributes-title" class="attributes-switcher-title">
-            ITEMS
-          </h2>
-        </div>
-        <div id="background-attributes" class="attrubutes-switcher" path="root">
-          <h2
-            id="background-attributes-title"
-            class="attributes-switcher-title"
-          >
-            BACKGROUND
-          </h2>
-        </div>
-      </div>
-      <div class="container" id="item-content-container">
-
-      </div>
+      <div class="container" id="item-content-container"></div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
     <script type="module" src="/src/js/editor/resizer.js"></script>
     <script type="module" src="/src/js/editor/fileReader.js"></script>
     <script type="module" src="/src/js/editor/fileProcesser.js"></script>
+    <script type="module" src="/src/js/editor/fileEditor.js"></script>
+
   </body>
 </html>
