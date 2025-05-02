@@ -68,23 +68,6 @@ export async function locateFile(name) {
 
           document.querySelector("#item-content-container").appendChild(div);
         }
-        function createItem() {
-          const displayItem = document.createElement("div");
-          displayItem.className = "display-item";
-          displayItem.id = item.internal_type;
-          displayItem.textContent = item.text_expression; //TODO: change to readable text when KODE is added
-          const styles = {
-            width: `${item.shape_width ?? item.bitmap_width}px`,
-            height: `${
-              item.shape_height ??
-              item.shape_width ??
-              item.bitmap_height ??
-              item.bitmap_width
-            }px`,
-            borderRadius: `${item.shape_corners}px`,
-            backgroundColor: item.paint_color,
-            fontSize: `${item.text_size}px`,
-          };
 
           Object.assign(displayItem.style, styles);
 
