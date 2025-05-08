@@ -232,7 +232,6 @@ export async function createAttributes() {
         titleElement.textContent = attribute.title;
         attributeElement.appendChild(titleElement);
 
-        // Switch based on the type of the attribute (a, b, c, d, e, f)
         switch (attribute.type) {
           case "a": //Dropdown/Menus
             if (attribute.options) {
