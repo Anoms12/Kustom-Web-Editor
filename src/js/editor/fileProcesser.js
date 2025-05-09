@@ -94,7 +94,6 @@ export async function locateFile(name) {
 
           createItem();
           createItemContent();
-
           if (item.children && Array.isArray(item.children)) {
             processItems(item.children, currentId);
           }
