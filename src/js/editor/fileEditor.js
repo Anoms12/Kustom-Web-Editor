@@ -1,7 +1,4 @@
-import { openDB } from "https://cdn.skypack.dev/idb";
-import { strFromU8 } from "https://cdn.jsdelivr.net/npm/fflate@0.7.4/esm/browser.js";
-
-// Handle click events
+// We Also Handle Click Events Here Because I felt Like It
 document.addEventListener("click", function (e) {
   if (e.target.closest("#item-attribute-container")) {
     return;
@@ -39,26 +36,28 @@ document.addEventListener("click", function (e) {
 
 // Function for setting up item preferences
 function titlePrefrencesSetup() {
-  document.addEventListener("click", function(event) {
+  document.addEventListener("click", function (event) {
     console.log("---Title Preferences Click Event---");
-    
+
     const clickedTitle = event.target.closest(".item-prefrences-title");
     if (!clickedTitle) {
       console.log("No title element found in click path");
       return;
     }
-    
+
     // Log state before changes
     console.log("Before changes:", {
       clickedId: clickedTitle.id,
       hasSelected: clickedTitle.hasAttribute("selected"),
-      allSelected: Array.from(document.querySelectorAll(".item-prefrences-title[selected]"))
-        .map(el => el.id)
+      allSelected: Array.from(
+        document.querySelectorAll(".item-prefrences-title[selected]")
+      ).map((el) => el.id),
     });
 
     // Remove selected from all titles
-    document.querySelectorAll(".item-prefrences-title[selected]")
-      .forEach(el => {
+    document
+      .querySelectorAll(".item-prefrences-title[selected]")
+      .forEach((el) => {
         console.log(`Removing selected from: ${el.id}`);
         el.removeAttribute("selected");
       });
@@ -68,8 +67,10 @@ function titlePrefrencesSetup() {
     console.log(`Added selected to: ${clickedTitle.id}`);
 
     // Show the corresponding attribute group and hide others
-    const attributeGroups = document.querySelectorAll("#item-attribute-container > div");
-    attributeGroups.forEach(group => {
+    const attributeGroups = document.querySelectorAll(
+      "#item-attribute-container > div"
+    );
+    attributeGroups.forEach((group) => {
       if (group.id === clickedTitle.id) {
         group.style.display = "block";
       } else {
@@ -141,7 +142,8 @@ export async function createAttributes() {
               title: "Corners",
               jsonName: "shape_corners",
               defaultValue: "0",
-              requiredVisibility: "Shape =! Circle, Oval, Cirlce Slice, Arc, Path, ",
+              requiredVisibility:
+                "Shape =! Circle, Oval, Cirlce Slice, Arc, Path, ",
               type: "b",
             },
             {
@@ -171,7 +173,7 @@ export async function createAttributes() {
           ],
         },
         {
-          attributesContainer: "attribute-container-2",
+          attributesContainer: "PAINT",
           attributes: [
             {
               icon: "/src/assets/null.svg",
@@ -192,7 +194,7 @@ export async function createAttributes() {
           ],
         },
         {
-          attributesContainer: "attribute-container-3",
+          attributesContainer: "FX",
           attributes: [
             {
               icon: "/src/assets/null.svg",
@@ -214,7 +216,7 @@ export async function createAttributes() {
           ],
         },
         {
-          attributesContainer: "attribute-container-4",
+          attributesContainer: "POSITION",
           attributes: [
             {
               icon: "/src/assets/null.svg",
@@ -227,7 +229,7 @@ export async function createAttributes() {
           ],
         },
         {
-          attributesContainer: "attribute-container-5",
+          attributesContainer: "TOUCH",
           attributes: [
             {
               icon: "/src/assets/null.svg",
@@ -236,32 +238,6 @@ export async function createAttributes() {
               defaultValue: "default8",
               requiredVisibility: "",
               type: "b",
-            },
-          ],
-        },
-        {
-          attributesContainer: "attribute-container-6",
-          attributes: [
-            {
-              icon: "/src/assets/null.svg",
-              title: "Title 9",
-              jsonName: "jsonName9",
-              defaultValue: "default9",
-              requiredVisibility: "",
-              type: "c",
-            },
-          ],
-        },
-        {
-          attributesContainer: "attribute-container-7",
-          attributes: [
-            {
-              icon: "/src/assets/null.svg",
-              title: "Title 10",
-              jsonName: "jsonName10",
-              defaultValue: "default10",
-              requiredVisibility: "",
-              type: "d",
             },
           ],
         },
@@ -288,9 +264,11 @@ export async function createAttributes() {
       });
 
       // Add this: Select the first title by default
-      const firstTitle = itemPrefrencesTitleContainer.querySelector('.item-prefrences-title');
+      const firstTitle = itemPrefrencesTitleContainer.querySelector(
+        ".item-prefrences-title"
+      );
       if (firstTitle) {
-        firstTitle.setAttribute('selected', '');
+        firstTitle.setAttribute("selected", "");
       }
     } else {
       console.warn(`No item-prefrences-title-container was found`);
@@ -316,12 +294,19 @@ export async function createAttributes() {
         const groupContainer = document.createElement("div");
         groupContainer.id = containerId;
 
-        if (attributeGroup && attributeGroup.attributes && Array.isArray(attributeGroup.attributes)) {
+        if (
+          attributeGroup &&
+          attributeGroup.attributes &&
+          Array.isArray(attributeGroup.attributes)
+        ) {
           createAttriubteItems(attributeGroup, groupContainer);
         } else {
-          console.warn(`Invalid attributeGroup structure: ${JSON.stringify(attributeGroup)}`);
+          console.warn(
+            `Invalid attributeGroup structure: ${JSON.stringify(
+              attributeGroup
+            )}`
+          );
         }
-        
 
         attributeContainer.appendChild(groupContainer);
       } catch (groupError) {

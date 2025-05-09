@@ -72,6 +72,11 @@ body {
       background-color: grey;
       border: 1px solid var(--text-color);
       z-index: 1;
+
+      .display-item[selected] {
+        outline: 2px solid red;
+        outline-offset: 8px;
+      }
     }
   }
 
@@ -122,7 +127,7 @@ body {
           cursor: pointer;
 
           &:hover {
-            background-color: var(--selected-color);
+            background-color: rgba(0, 0, 0, 0.1);
           }
 
           #left-content-container {
@@ -187,7 +192,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100vw;
-    height: calc(100% - 42px);
+    height: 100%;
     overflow-y: scroll;
 
     .item {
@@ -199,9 +204,13 @@ body {
       padding: 5px 5px;
       border: 1px solid var(--text-color);
       cursor: pointer;
+      transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: var(--selected-color);
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+      &[selected=""] {
+        background-color: rgba(255, 255, 255, 0.1);
       }
 
       #left-content-container {
