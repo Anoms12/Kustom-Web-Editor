@@ -2,11 +2,20 @@ import { openDB } from "https://cdn.skypack.dev/idb";
 import { strFromU8 } from "https://cdn.jsdelivr.net/npm/fflate@0.7.4/esm/browser.js";
 
 export let preset_info = null;
+export let IMGName = "";
 
 export async function locateFile(name) {
   const db = await openDB("ZipCacheDB", 1);
   const tx = db.transaction("files", "readonly");
   const store = tx.objectStore("files");
+
+  // Add this code to list all files with their contents
+  console.log("Listing all files in database:");
+  const allFiles = await store.getAll();
+  const allKeys = await store.getAllKeys();
+  allKeys.forEach((key, index) => {
+    console.log(`File: ${key}, Size: ${allFiles[index].length} bytes`);
+  });
 
   const fileData = await store.get(name);
 
@@ -22,7 +31,7 @@ export async function locateFile(name) {
       const viewgroup_items = jsonData.preset_root.viewgroup_items;
 
       // Functions
-
+      function setupImages() {}
       function clearDiv() {
         const div = document.getElementById("item-content-container");
         div.innerHTML = "";
@@ -74,20 +83,46 @@ export async function locateFile(name) {
             document.querySelector("#item-content-container").appendChild(div);
           }
 
-          function createItem() {
+          async function createItem() {
+            const firstDefined = (...args) => args.find((val) => val != null);
             const displayItem = document.createElement("div");
             displayItem.className = "display-item";
             displayItem.id = currentId;
             displayItem.setAttribute("type", item.internal_type);
-            displayItem.textContent = item.text_expression;
+
+            // Initialize styles object before using it
             const styles = {
               width: `${item.shape_width ?? item.bitmap_width}px`,
-              height: `${item.shape_height ?? item.shape_width}px`,
+              height: `${firstDefined(
+                item.shape_height,
+                item.shape_width,
+                item.bitmap_width,
+                item.bitmap_height
+              )}px`,
               borderRadius: `${item.shape_corners}px`,
               backgroundColor: item.paint_color,
               fontSize: `${item.text_size}px`,
+              backgroundSize: "cover", // Add this
+              backgroundPosition: "center", // Add this
+              backgroundRepeat: "no-repeat" // Add this
             };
 
+            if (item.bitmap_bitmap) {
+              const imgpath = item.bitmap_bitmap;
+              console.log(`Processing bitmap for ${currentId}:`, imgpath);
+              const blobUrl = await processImageFile(imgpath);
+              if (blobUrl) {
+                styles.backgroundImage = `url("${blobUrl}")`;
+                console.log(`Set background image for ${currentId}:`, blobUrl);
+              }
+            }
+
+            // Only set text content if it exists
+            if (item.text_expression) {
+              displayItem.textContent = item.text_expression;
+            }
+
+            console.log(`Generated styles for ${currentId}:`, styles);
             Object.assign(displayItem.style, styles);
             document.querySelector("#canvas").appendChild(displayItem);
           }
@@ -101,8 +136,15 @@ export async function locateFile(name) {
       }
 
       processItems(viewgroup_items);
+    } else if (!name.includes(".") && name.startsWith("IMG")) {
+      console.log("File is an img file.");
+      // Update the existing IMGName instead of creating a new one
+      IMGName = name + ".png";
+      console.log("Renamed to:", IMGName);
     } else {
-      console.log("File is not a JSON file. Making next file");
+      console.log(
+        "Requested file not found. Please check that file exist and try again."
+      );
     }
 
     return filedata;
@@ -128,4 +170,42 @@ export async function setupCanvas() {
   canvas.style.width = `${preset_info.width}px`;
   canvas.style.height = `${preset_info.height}px`;
   canvas.style.transform = `scale(${scale})`;
+}
+
+// First, add this function near the top of the file after the imports
+async function processImageFile(name) {
+    console.log('Processing image file:', name);
+    
+    if (!name) {
+        console.warn('Image name is undefined or empty');
+        return null;
+    }
+
+    // Extract just the filename if a path is provided
+    const fileName = name.split('/').pop().replace('kfile://org.kustom.provider/bitmaps/', '');
+    console.log('Extracted filename:', fileName);
+
+    // Check if file exists in database
+    const db = await openDB("ZipCacheDB", 1);
+    const tx = db.transaction("files", "readonly");
+    const store = tx.objectStore("files");
+    
+    // Try to find the file in bitmaps folder
+    const bitmapPath = `bitmaps/${fileName}`;
+    console.log('Looking for bitmap at:', bitmapPath);
+    
+    const fileData = await store.get(bitmapPath);
+    
+    if (fileData) {
+        console.log("Found bitmap in database, creating blob URL");
+        const blob = new Blob([fileData], { type: 'image/png' });
+        const imageUrl = URL.createObjectURL(blob);
+        return imageUrl;
+    }
+    
+    console.log("File not found in database:", {
+        searchPath: bitmapPath,
+        filename: fileName
+    });
+    return null;
 }

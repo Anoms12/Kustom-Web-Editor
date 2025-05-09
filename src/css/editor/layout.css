@@ -67,6 +67,7 @@ body {
     background-color: transparent;
 
     #canvas {
+      display: unset;
       width: 85%;
       height: 85%;
       background-color: grey;
