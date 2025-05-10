@@ -9,6 +9,8 @@ https://forum.kustom.rocks/t/font-used-in-klwp/10675
 - [x] File handeling (renaming extension, unzipping file, moving to editor)
 - [ ] Element Creation
 - [x] Image Rendering
+- [ ] Icons
+- [ ] Fonts
 - [ ] Item Rendering (partialy completed) 
 - [ ] Style Proccessing
 - [ ] Element Style Syncing With JSON
