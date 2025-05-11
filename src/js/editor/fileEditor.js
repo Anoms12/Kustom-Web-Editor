@@ -37,11 +37,9 @@ document.addEventListener("click", function (e) {
 // Function for setting up item preferences
 function titlePrefrencesSetup() {
   document.addEventListener("click", function (event) {
-    console.log("---Title Preferences Click Event---");
 
     const clickedTitle = event.target.closest(".item-prefrences-title");
     if (!clickedTitle) {
-      console.log("No title element found in click path");
       return;
     }
 
@@ -58,7 +56,6 @@ function titlePrefrencesSetup() {
     document
       .querySelectorAll(".item-prefrences-title[selected]")
       .forEach((el) => {
-        console.log(`Removing selected from: ${el.id}`);
         el.removeAttribute("selected");
       });
 
@@ -70,6 +67,7 @@ function titlePrefrencesSetup() {
     const attributeGroups = document.querySelectorAll(
       "#item-attribute-container > div"
     );
+    // Handel Attributes Display
     attributeGroups.forEach((group) => {
       if (group.id === clickedTitle.id) {
         group.style.display = "block";
@@ -177,11 +175,11 @@ export async function createAttributes() {
           attributes: [
             {
               icon: "/src/assets/null.svg",
-              title: "Title 3",
-              jsonName: "jsonName3",
-              defaultValue: "default3",
+              title: "Test",
+              jsonName: "null",
+              defaultValue: "1",
               requiredVisibility: "",
-              type: "c",
+              type: "a",
             },
             {
               icon: "/src/assets/null.svg",
@@ -189,7 +187,7 @@ export async function createAttributes() {
               jsonName: "jsonName4",
               defaultValue: "default4",
               requiredVisibility: "",
-              type: "d",
+              type: "b",
             },
           ],
         },
@@ -281,13 +279,14 @@ export async function createAttributes() {
         const containerId = attributeGroup.attributesContainer;
 
         const preferencesTitle = document.querySelector(
-          `.item-prefrences-title#${CSS.escape(containerId)}[selected]`
+          `.item-prefrences-title#${CSS.escape(containerId)}`
         );
 
         if (!preferencesTitle) {
           console.warn(
             `No preferences title found for container: ${containerId}`
           );
+          console.log(`magic: ${containerId}`)
           return;
         }
 

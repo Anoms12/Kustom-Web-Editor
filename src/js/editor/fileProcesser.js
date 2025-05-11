@@ -102,9 +102,10 @@ export async function locateFile(name) {
               borderRadius: `${item.shape_corners}px`,
               backgroundColor: item.paint_color,
               fontSize: `${item.text_size}px`,
-              backgroundSize: "cover", // Add this
-              backgroundPosition: "center", // Add this
-              backgroundRepeat: "no-repeat" // Add this
+              backgroundSize: "cover",
+              backgroundPosition: "center", 
+              backgroundRepeat: "no-repeat",
+              Display: "block"
             };
 
             if (item.bitmap_bitmap) {
@@ -172,7 +173,6 @@ export async function setupCanvas() {
   canvas.style.transform = `scale(${scale})`;
 }
 
-// First, add this function near the top of the file after the imports
 async function processImageFile(name) {
     console.log('Processing image file:', name);
     
@@ -181,7 +181,6 @@ async function processImageFile(name) {
         return null;
     }
 
-    // Extract just the filename if a path is provided
     const fileName = name.split('/').pop().replace('kfile://org.kustom.provider/bitmaps/', '');
     console.log('Extracted filename:', fileName);
 
@@ -190,7 +189,6 @@ async function processImageFile(name) {
     const tx = db.transaction("files", "readonly");
     const store = tx.objectStore("files");
     
-    // Try to find the file in bitmaps folder
     const bitmapPath = `bitmaps/${fileName}`;
     console.log('Looking for bitmap at:', bitmapPath);
     
