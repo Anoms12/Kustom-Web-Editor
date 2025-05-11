@@ -1,1 +1,17 @@
-{}
+{
+  "name": "kustom-web-editor",
+  "version": "1.0.0",
+  "description": "Currently Unfinished Editor for the Kustom App Suite\r ## Questions for how Things Function\r https://forum.kustom.rocks/t/font-used-in-klwp/10675",
+  "main": "index.js",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "scripts": {
+    "start": "live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

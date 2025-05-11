@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Import or Create File - Kustom Desktop Web Editor</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorisgin />
+    <link rel="icon" href="/src/assets/kdwe.png" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&family=Sonsie+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Stylesheets-->
+    <link rel="stylesheet" href="/src/css/defaults.css" />
+    <link rel="stylesheet" href="/src/landing/layout.css" />
+  </head>
+  <body>
+    <input
+      type="file"
+      id="import-file"
+      accept=".KLWP,.KWGT,.KLCK,.KWCH,.KOMP"
+      style="display: none"
+    />
+    <button class="primary-function" id="import-file-button">
+      <label for="import-file" style="display: inline-block; cursor: pointer">
+        Import File
+      </label>
+    </button>
+    <button
+      class="primary-function dropdown"
+      id="create-new"
+      formaction="../html/index.html"
+    >
+      <span>Create New</span>
+      <div class="dropdown-content">
+        <p>KLWP</p>
+        <p>KWGT</p>
+        <p>KLCK</p>
+        <p>KWCH</p>
+        <p>KOMP</p>
+      </div>
+    </button>
+    <script type="module" src="/src/landing/import.js"></script>
+    <script src="https://unpkg.com/fflate@0.8.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js"></script>
+  </body>
+</html>
